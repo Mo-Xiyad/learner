@@ -4,9 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { getProviders, signIn, signOut } from 'next-auth/react';
+import { getProviders, signIn, signOut, useSession } from 'next-auth/react';
 function Nav() {
-  const isUserLoggedIn = true;
+  const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
   const [toggleMenu, setToggleMenu] = useState(false);
   useEffect(() => {
@@ -31,7 +31,7 @@ function Nav() {
       </Link>
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn">
               Create Prompt
@@ -59,7 +59,7 @@ function Nav() {
                   key={provider.name}
                   onClick={() => signIn(provider.id)}
                 >
-                  Sign in with {provider.name}
+                  Sign in
                 </button>
               ))}
           </>
@@ -67,7 +67,7 @@ function Nav() {
       </div>
       {/* Mobile Navigation */}
       <div className="sm:hidden flex relative gap-3">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex">
             <Image
               src={'/assets/icons/menu.svg'}
