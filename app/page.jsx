@@ -1,3 +1,4 @@
+import Feed from '@components/Feed';
 const Home = () => {
   return (
     <section className="w-full flex-center flex-col">
@@ -12,6 +13,7 @@ const Home = () => {
         Promote Generator is a tool that helps you great social media posts for
         your business.
       </p>
+      <Feed />
     </section>
   );
 };
