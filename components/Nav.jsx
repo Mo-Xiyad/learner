@@ -41,7 +41,7 @@ function Nav() {
             </button>
             <Link href="/" className="">
               <Image
-                src={'/assets/images/logo.svg'}
+                src={session.user.image}
                 width={37}
                 height={37}
                 alt="user"
@@ -70,9 +70,9 @@ function Nav() {
         {session?.user ? (
           <div className="flex">
             <Image
-              src={'/assets/icons/menu.svg'}
-              width={20}
-              height={20}
+              src={session.user.image}
+              width={37}
+              height={37}
               alt="menu"
               className="rounded-full"
               onClick={() => setToggleMenu((prev) => !prev)}
