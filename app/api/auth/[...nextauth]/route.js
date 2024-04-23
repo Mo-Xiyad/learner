@@ -10,29 +10,31 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
     })
   ],
-  async session({ session }) {
-    // store the user id from MongoDB to session
-    const sessionUser = await User.findOne({ email: session.user.email });
-    session.user.id = sessionUser._id.toString();
+  callbacks: {
+    async session({ session }) {
+      // store the user id from MongoDB to session
+      const sessionUser = await User.findOne({ email: session.user.email });
+      session.user.id = sessionUser._id.toString();
 
-    return session;
-  },
-  async signIn({ profile }) {
-    try {
-      // serverless function -> Lambda -> DynamoDB
-      await connectToDB();
-      const userExists = await User.findOne({ email: profile.email });
-      if (!userExists) {
-        await User.create({
-          email: profile.email,
-          username: profile.name.replace(' ', '').toLowerCase(),
-          image: profile.picture
-        });
+      return session;
+    },
+    async signIn({ profile }) {
+      try {
+        // serverless function -> Lambda -> DynamoDB
+        await connectToDB();
+        const userExists = await User.findOne({ email: profile.email });
+        if (!userExists) {
+          await User.create({
+            email: profile.email,
+            username: profile.name.replace(' ', '').toLowerCase(),
+            image: profile.picture
+          });
+        }
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
       }
-      return true;
-    } catch (error) {
-      console.log(error);
-      return false;
     }
   }
 });
