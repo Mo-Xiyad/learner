@@ -27,14 +27,14 @@ function Nav() {
           alt="logo"
           className="object-contain"
         />
-        <span className="logo_text">promp-tete</span>
+        <span className="logo_text">Learner</span>
       </Link>
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
         {session?.user ? (
           <div className="flex gap-3 md:gap-5">
-            <Link href="/create-prompt" className="black_btn">
-              Create Prompt
+            <Link href="/create-post" className="black_btn">
+              Create post
             </Link>
             <button type="button" onClick={signOut} className="outline_btn">
               Sign Out
@@ -87,7 +87,7 @@ function Nav() {
                   profile
                 </Link>
                 <Link
-                  href="/create-prompt"
+                  href="/create-post"
                   className="dropdown_link"
                   onClick={() => setToggleMenu(false)}
                 >
