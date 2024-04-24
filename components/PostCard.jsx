@@ -9,7 +9,6 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
-
   const [copied, setCopied] = useState('');
 
   const handleProfileClick = () => {
@@ -65,7 +64,12 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
         </div>
       </div>
 
-      <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
+      <p className="my-4 font-satoshi text-sm text-gray-700">
+        {pathName.includes('profile')
+          ? post.post
+          : post.post.slice(0, 200) + '...'}
+      </p>
+
       <p
         className="font-inter text-sm blue_gradient cursor-pointer"
         onClick={() => handleTagClick && handleTagClick(post.tag)}
