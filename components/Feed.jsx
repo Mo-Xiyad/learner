@@ -25,7 +25,6 @@ const Feed = () => {
   const fetchPosts = async () => {
     const response = await fetch('/api/post');
     const data = await response.json();
-    console.log(data);
     setAllPosts(data);
   };
 
