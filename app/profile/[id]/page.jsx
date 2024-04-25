@@ -23,11 +23,15 @@ const UserProfile = ({ params }) => {
   }, [params.id]);
 
   return (
-    <Profile
-      name={userName}
-      desc={`Welcome to ${userName}'s personalized profile page. Explore ${userName}'s exceptional posts and be inspired.`}
-      data={userPosts}
-    />
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Profile
+          name={userName}
+          desc={`Welcome to ${userName}'s personalized profile page. Explore ${userName}'s exceptional posts and be inspired.`}
+          data={userPosts}
+        />
+      </Suspense>
+    </div>
   );
 };
 

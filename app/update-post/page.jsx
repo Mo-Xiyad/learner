@@ -1,21 +1,22 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+
 import { Suspense, useEffect, useState } from 'react';
 
 import Form from '@components/Form';
 
-const UpdatePost = () => {
-  const router = useRouter();
+function updatePostComponent() {
   const searchParams = useSearchParams();
-  const promptId = searchParams.get('id');
+  const postId = searchParams.get('id');
+  const router = useRouter();
 
   const [post, setPost] = useState({ post: '', tag: '' });
   const [submitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const getPromptDetails = async () => {
-      const response = await fetch(`/api/post/${promptId}`);
+      const response = await fetch(`/api/post/${postId}`);
       const data = await response.json();
 
       setPost({
@@ -24,17 +25,17 @@ const UpdatePost = () => {
       });
     };
 
-    if (promptId) getPromptDetails();
-  }, [promptId]);
+    if (postId) getPromptDetails();
+  }, [postId]);
 
   const updatePrompt = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    if (!promptId) return alert('Missing PostId!');
+    if (!postId) return alert('Missing PostId!');
 
     try {
-      const response = await fetch(`/api/post/${promptId}`, {
+      const response = await fetch(`/api/post/${postId}`, {
         method: 'PATCH',
         body: JSON.stringify({
           post: post.post,
@@ -53,15 +54,19 @@ const UpdatePost = () => {
   };
 
   return (
-    // add suspense
-    <Suspense fallback={<div>Loading...</div>}>
-      <Form
-        type="Edit"
-        post={post}
-        setPost={setPost}
-        submitting={submitting}
-        handleSubmit={updatePrompt}
-      />
+    <Form
+      type="Edit"
+      post={post}
+      setPost={setPost}
+      submitting={submitting}
+      handleSubmit={updatePrompt}
+    />
+  );
+}
+const UpdatePost = () => {
+  return (
+    <Suspense>
+      <updatePostComponent />
     </Suspense>
   );
 };

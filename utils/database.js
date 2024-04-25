@@ -10,9 +10,7 @@ export const connectToDB = async () => {
   }
   try {
     const db = await mongoose.connect(process.env.MONGODB_URI, {
-      dbName: 'prompt-generator',
-      useNewUrlParser: true,
-      useUnifiedTopology: true
+      dbName: 'prompt-generator'
     });
 
     isConnected = db.connections[0].readyState;

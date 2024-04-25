@@ -62,8 +62,8 @@ const Feed = () => {
   };
 
   return (
-    <section className="feed">
-      <Suspense>
+    <Suspense>
+      <section className="feed">
         <form className="relative w-full flex-center">
           <input
             type="text"
@@ -74,15 +74,18 @@ const Feed = () => {
             className="search_input peer"
           />
         </form>
-      </Suspense>
 
-      {/* All Prompts */}
-      {searchText ? (
-        <PostCardList data={searchedResults} handleTagClick={handleTagClick} />
-      ) : (
-        <PostCardList data={allPosts} handleTagClick={handleTagClick} />
-      )}
-    </section>
+        {/* All Prompts */}
+        {searchText ? (
+          <PostCardList
+            data={searchedResults}
+            handleTagClick={handleTagClick}
+          />
+        ) : (
+          <PostCardList data={allPosts} handleTagClick={handleTagClick} />
+        )}
+      </section>
+    </Suspense>
   );
 };
 
