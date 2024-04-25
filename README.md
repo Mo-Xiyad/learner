@@ -25,4 +25,5 @@ Steps:
 
 - A simple web application that allows users to login with google.
 - This project was bootstrapped with [Create Next App](https://nextjs.org/docs/api-reference/create-next-app).
+- This project uses [NextAuth.js](https://next-auth.js.org/) for authentication.
 - This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
